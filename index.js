@@ -4,8 +4,8 @@
 const fs = require('fs')
 const path = require('path')
 const marked = require('marked')
-// const fetch = require('node-fetch')
-const https = require('https')
+const fetch = require('node-fetch')
+const http = require('http')
 
 // md.validateLink = function () { return true }
 
@@ -46,6 +46,7 @@ const accessDirectory = (filePath) => {
     })
     return mdFiles
 }
+// console.log(accessDirectory(process.argv[2]))
 
 // LEER ARCHIVO
 const readFile = (filePath) => (fs.readFileSync(filePath, 'utf8'))
@@ -56,51 +57,58 @@ const storageLinks = []
 const getLinks = (filePath) => {
     const renderer = new marked.Renderer()
     renderer.link = (href, title, text) => {
-      const linkInfo = {
+        const validHref = /https:([^"')\s]+)/
+        if (validHref.test(href) === true) {
+        const linkInfo = {
         href: href,
         text: text,
         file: filePath
       }
       return storageLinks.push(linkInfo)
     }
+    }
     marked(readFile(filePath), { renderer })
     return storageLinks
 }
+// console.log(getLinks('readme.md'))
 
 const validateLink = (arr) => arr.map((obj) =>
-    new Promise((resolve, reject) => {
-    https.get(obj.href, (res) => {
-            if (res.statusCode === 200) {
+    fetch(obj.href)
+    .then((res) => {
+        if (res.status === 200) {
                 const objLink = {
                     Href: obj.href,
                     Text: obj.text,
                     File: obj.file,
-                    Status: res.statusCode,
-                    Message: res.statusMessage
+                    Status: res.status,
+                    Message: 'OK'
                 }
-                resolve(console.log(objLink))
-            } else if (res.statusCode !== 200) {
+                return (objLink)
+            } else if (res.status !== 200) {
                 const objLink = {
                     Href: obj.href,
                     Text: obj.text,
                     File: obj.file,
-                    Status: res.statusCode,
+                    Status: res.status,
                     Message: 'FAIL'
                 }
-                resolve(console.log(objLink))
-            } else {
-                const err = new Error(`REQUEST ERROR ON ${obj.href}. Status ${res.statusCode}`)
-                reject(err)
+                return (objLink)
             }
-     })
-}))
+    })
+    .catch(() => ({
+        Href: obj.href,
+        Text: obj.text,
+        File: obj.file,
+        status: 500,
+        statusText: 'FAIL'
+      }))
+)
 
-
-Promise.all(validateLink(getLinks(process.argv[2])))
-.then((res) => {
-    console.log(res)
-})
-.catch((error) => console.error(error))
+// Promise.all(validateLink(getLinks(process.argv[2])))
+// .then((res) => {
+//     console.log(res)
+// })
+// .catch((error) => console.error(error))
 
 
 
@@ -113,5 +121,40 @@ module.exports = {
     mdExt,
     readFile,
     readDir,
-    accessDirectory
+    accessDirectory,
+    validateLink,
+    getLinks
 }
+
+// new Promise((resolve, reject) => {
+    // https.get(obj.href, (res) => {
+//     if (res.statusCode === 200) {
+//         const objLink = {
+//             Href: obj.href,
+//             Text: obj.text,
+//             File: obj.file,
+//             Status: res.statusCode,
+//             Message: res.statusMessage
+//         }
+//         resolve(objLink)
+//     } else if (res.statusCode !== 200) {
+//         const objLink = {
+//             Href: obj.href,
+//             Text: obj.text,
+//             File: obj.file,
+//             Status: res.statusCode,
+//             Message: 'FAIL'
+//         }
+//         resolve(objLink)
+//     } else {
+//         const err = new Error(`REQUEST ERROR ON ${obj.href}. Status ${res.statusCode}`)
+//         reject(err)
+//     }
+// }).on('error', (e) => {
+// const objLink = {
+//     Href: obj.href,
+//     Status: 'Broken Link',
+//     Message: 'FAIL'
+// }
+// resolve(objLink)
+// })
