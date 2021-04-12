@@ -5,7 +5,8 @@ const {
   isFile,
   isDirectory,
   mdExt,
-  accessDirectory
+  accessDirectory,
+  getLinks
 } = require('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/index.js')
 
 const readingFile = (filePath, option) => {
@@ -13,13 +14,10 @@ const readingFile = (filePath, option) => {
     if (isAbsolute(filePath)) {
       if (isFile(filePath)) {
         if (mdExt(filePath)) {
-          getLinks(filePath)
         } else { console.log('No soy archivo con extensión MD') }
       } else if (isDirectory(filePath)) {
         console.log(accessDirectory(filePath))
-        // for (let i = 0; i < accessDirectory(filePath).length; i++) {
-        // getLinks((accessDirectory(filePath))[i])
-        // }
+        accessDirectory(filePath).forEach((file)=> {})
       }
     } else if (isAbsolute(filePath) === false) {
       readingFile(relativToAbs(filePath))

@@ -4,9 +4,8 @@
 const fs = require('fs')
 const path = require('path')
 const marked = require('marked')
-const md = require('markdown-it')()
-
-
+// const fetch = require('node-fetch')
+const https = require('https')
 
 // md.validateLink = function () { return true }
 
@@ -48,15 +47,13 @@ const accessDirectory = (filePath) => {
     return mdFiles
 }
 
-
 // LEER ARCHIVO
 const readFile = (filePath) => (fs.readFileSync(filePath, 'utf8'))
 // readFile('.gitignore')
 
 // OBTENER LINKS
+const storageLinks = []
 const getLinks = (filePath) => {
-//    const validateLinks = (link) => md.validateLink(link)
-    const prueba = []
     const renderer = new marked.Renderer()
     renderer.link = (href, title, text) => {
       const linkInfo = {
@@ -64,13 +61,48 @@ const getLinks = (filePath) => {
         text: text,
         file: filePath
       }
-      return prueba.push(linkInfo)
-      // validateLinks(href))
+      return storageLinks.push(linkInfo)
     }
     marked(readFile(filePath), { renderer })
-    return prueba
+    return storageLinks
 }
-console.log(getLinks('README.md'))
+
+const validateLink = (arr) => arr.map((obj) =>
+    new Promise((resolve, reject) => {
+    https.get(obj.href, (res) => {
+            if (res.statusCode === 200) {
+                const objLink = {
+                    Href: obj.href,
+                    Text: obj.text,
+                    File: obj.file,
+                    Status: res.statusCode,
+                    Message: res.statusMessage
+                }
+                resolve(console.log(objLink))
+            } else if (res.statusCode !== 200) {
+                const objLink = {
+                    Href: obj.href,
+                    Text: obj.text,
+                    File: obj.file,
+                    Status: res.statusCode,
+                    Message: 'FAIL'
+                }
+                resolve(console.log(objLink))
+            } else {
+                const err = new Error(`REQUEST ERROR ON ${obj.href}. Status ${res.statusCode}`)
+                reject(err)
+            }
+     })
+}))
+
+
+Promise.all(validateLink(getLinks(process.argv[2])))
+.then((res) => {
+    console.log(res)
+})
+.catch((error) => console.error(error))
+
+
 
 module.exports = {
     itExists,

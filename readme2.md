@@ -10,4 +10,8 @@
 * [ ] [Diferenciar entre tipos de datos atómicos y estructurados.](https://developer.mozilla.org/es/docs/Web/JavaScript/Data_structures)
 * [ ] [Uso de callbacks.](https://mozilla.org/es/docs/Glossary/Callback_function)
 * [ ] [Consumo de Promesas.](https://tutorials/javascript-promises-for-dummies#toc-consuming-promises)
-* [ ] [Creación de Promesas.](news/how-to-write-a-javascript-promise-4ed8d44292b8/)
+* [ ] [Creación de Promesas.](https:/news/how-to-write-a-javascript-promise-4ed8d44292b8/)
+
+
+
+
