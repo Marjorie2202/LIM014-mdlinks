@@ -1,15 +1,17 @@
 // const mdLinks = require('../');
 const {
   itExists,
-  isAbsolute,
   relativToAbs,
   isFile,
   isDirectory,
-  mdExt
+  mdExt,
+  accessDirectory,
+  getLinks,
+  validateLink
 } = require('../index.js')
 
 // IT EXISTS
-describe('file or directory exists ', () => {
+describe('File or directory exists ', () => {
   it('should be a function', () => {
     expect(typeof itExists).toBe('function')
   })
@@ -19,12 +21,12 @@ describe('file or directory exists ', () => {
     expect(itExists(null)).toBe(false)
     expect(itExists([])).toBe(false)
   })
-  it('should return ""', () => {
+  it('should return "true"', () => {
     expect(itExists('index.js')).toBe(true)
   })
 })
 
-describe('function that transforms relative paths into absolute ', () => {
+describe('Function that transforms relative paths into absolute ', () => {
   it('should be a function', () => {
     expect(typeof relativToAbs).toBe('function')
   })
@@ -36,19 +38,7 @@ describe('function that transforms relative paths into absolute ', () => {
   })
 })
 
-describe('is this path absolute? ', () => {
-  it('should be a function', () => {
-    expect(typeof isAbsolute).toBe('function')
-  })
-  it('should throw Error when invoked with wrong argument types', () => {
-    expect(() => isAbsolute()).toThrowError('The "path" argument must be of type string. Received undefined')
-    expect(() => isAbsolute(0)).toThrowError()
-    expect(() => isAbsolute([])).toThrowError()
-    expect(() => isAbsolute(null)).toThrowError()
-  })
-})
-
-describe('is this a file?', () => {
+describe('Is this a file?', () => {
   it('should be a function', () => {
     expect(typeof isFile).toBe('function')
   })
@@ -58,9 +48,12 @@ describe('is this a file?', () => {
     expect(() => isFile([])).toThrowError()
     expect(() => isFile(null)).toThrowError()
   })
+  it('should return "true"', () => {
+    expect(isFile('index.js')).toBe(true)
+  })
 })
 
-describe('file or directory exists ', () => {
+describe('Is it a directory? ', () => {
   it('should be a function', () => {
     expect(typeof isDirectory).toBe('function')
   })
@@ -70,9 +63,12 @@ describe('file or directory exists ', () => {
     expect(() => isDirectory([])).toThrowError()
     expect(() => isDirectory(null)).toThrowError()
   })
+  it('should return "true"', () => {
+    expect(isDirectory('test')).toBe(true)
+  })
 })
 
-describe('file or directory exists ', () => {
+describe('Is it an md file?', () => {
   it('should be a function', () => {
     expect(typeof mdExt).toBe('function')
   })
@@ -81,6 +77,65 @@ describe('file or directory exists ', () => {
     expect(() => mdExt(0)).toThrowError()
     expect(() => mdExt([])).toThrowError()
     expect(() => mdExt(null)).toThrowError()
+  })
+  it('should return "true"', () => {
+    expect(mdExt('README.md')).toBe(true)
+  })
+})
+
+describe('Access Directory ', () => {
+  it('should be a function', () => {
+    expect(typeof accessDirectory).toBe('function')
+  })
+  it('should throw Error when invoked with wrong argument types', () => {
+    expect(() => accessDirectory()).toThrowError('The "path" argument must be of type string or an instance of Buffer or URL. Received undefined')
+    expect(() => accessDirectory(0)).toThrowError()
+    expect(() => accessDirectory([])).toThrowError()
+    expect(() => accessDirectory(null)).toThrowError()
+  })
+  it('should return an empty array', () => {
+    expect(accessDirectory('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/test')).toStrictEqual([])
+  })
+  it('should return an array', () => {
+    expect(accessDirectory('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory'))
+      .toStrictEqual([
+        'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/exampFile2.md',
+        'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/exampFile4.md',
+        'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'
+      ])
+  })
+})
+
+describe('Get Links', () => {
+  it('should be a function', () => {
+    expect(typeof getLinks).toBe('function')
+  })
+  it('should throw Error when invoked with wrong argument types', () => {
+    expect(() => getLinks()).toThrowError('The "path" argument must be of type string or an instance of Buffer or URL. Received undefined')
+    expect(() => getLinks(0)).toThrowError()
+    expect(() => getLinks([])).toThrowError()
+    expect(() => getLinks(null)).toThrowError()
+  })
+  it('should return an array with objects', () => {
+    expect(getLinks('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'))
+      .toStrictEqual([
+        {
+          href: 'https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209',
+          text: 'entramos al 3er dir',
+          file: 'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'
+        }
+      ])
+  })
+})
+
+describe('Validate Links', () => {
+  it('should be a function', () => {
+    expect(typeof validateLink).toBe('function')
+  })
+  it('should throw Error when invoked with wrong argument types', () => {
+    expect(() => validateLink()).toThrowError(TypeError)
+    expect(() => validateLink(0)).toThrowError()
+    expect(() => validateLink(null)).toThrowError()
   })
 })
 

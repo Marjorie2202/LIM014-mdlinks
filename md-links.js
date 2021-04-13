@@ -1,7 +1,6 @@
 /* eslint-disable prefer-promise-reject-errors */
 const {
   itExists,
-  isAbsolute,
   relativToAbs,
   isFile,
   isDirectory,
@@ -14,49 +13,39 @@ const {
 const mdLinks = (filePath, option) => {
   return new Promise((resolve, reject) => {
     if (itExists(filePath)) {
-      if (isAbsolute(filePath)) {
+      if (relativToAbs(filePath)) {
         if (isFile(filePath)) {
           if (mdExt(filePath)) {
             if (option.validate) {
               Promise.all(validateLink(getLinks(filePath)))
-                .then((res) => {
-                  resolve(res)
-                })
+                .then((res) => { resolve(res) })
                 .catch((error) => console.error(error))
             } else {
               resolve(getLinks(filePath))
             }
           } else { resolve('No soy archivo con extensión MD') }
         } else if (isDirectory(filePath)) {
-          // console.log(accessDirectory(filePath))
           accessDirectory(filePath).forEach((file) => {
-            resolve(file + ' Soy archivo con extensión MD')
+            if (option.validate) {
+              Promise.all(validateLink(getLinks(file)))
+                .then((res) => { resolve(res) })
+                .catch((error) => console.error(error))
+            } else {
+              resolve(getLinks(file))
+            }
           })
-        }
-      } else {
-        mdLinks(relativToAbs(filePath))
+        } else { reject('No hay archivos MD') }
       }
-    } else {
-      console.log('ruta no existe')
-    }
+    } else { reject('ruta no existe') }
   })
 }
-
-//  readingFile(process.argv[2])
-
-// const mdLinks = (filePath, option) => {
-//   return new Promise((resolve, reject) => {
-//     const checkPath = itExists(filePath)
-//     if (checkPath) {
-//       resolve(filePath)
-//     } else {
-//       reject('No existe')
-//     }
-//   })
-// }
 
 mdLinks(process.argv[2], { validate: false })
   .then((links) => {
     console.log(links)
   })
   .catch(console.error)
+
+module.exports = {
+  mdLinks
+}

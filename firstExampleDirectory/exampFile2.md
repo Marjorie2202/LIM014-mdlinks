@@ -1,0 +1,1 @@
+[ ] [Entramos al 1er directorio)](https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209)
