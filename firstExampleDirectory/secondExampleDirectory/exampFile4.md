@@ -1,1 +1,1 @@
-* [ ] [entramos al 2do dir](https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209)
+* [ ] [entramos al 2do dir - status404](https://raw.githubusercontent.com/erikagonza25/LIM014-mdlinks/main/img/links_404)

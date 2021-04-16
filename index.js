@@ -6,7 +6,6 @@ const path = require('path')
 const marked = require('marked')
 const fetch = require('node-fetch')
 
-// md.validateLink = function () { return true }
 
 // DETERMINAR SI EL PATH ES ABSOLUTO
 //  const isAbsolute = (filePath) => path.isAbsolute(filePath)
@@ -30,26 +29,22 @@ function mdExt (file) {
 }
 
 // FUNCIÓN RECURSIVA ACCEDER A DIRECTORIO Y FILTRAR ARCHIVOS MD
-const mdFiles = []
-const accessDirectory = (directory) => {
-// AVERIGUAR SI ES ARCHIVO O DIRECTORIO NODE FS
+const mdFilesArr = []
+const mdFiles = (directory) => {
     readDir(directory).forEach(file => {
         if (isFile(directory + `/${file}`)) {
             if (mdExt(directory + `/${file}`)) {
-            mdFiles.push(directory + `/${file}`)
+            mdFilesArr.push(directory + `/${file}`)
             }
-        } else if (isDirectory(directory + `/${file}`)) {
-            accessDirectory(directory + `/${file}`)
-        }
+        } else { mdFiles(directory + `/${file}`) }
     })
-    return mdFiles
+    return mdFilesArr
 }
 // CONVERTIR LA FUNCIÓN A PURA
-// console.log(accessDirectory(process.argv[2]))
+// console.log(mdFiles(process.argv[2]))
 
 // LEER ARCHIVO
 const readFile = (filePath) => (fs.readFileSync(filePath, 'utf8'))
-// readFile('.gitignore')
 
 // OBTENER LINKS
 const storageLinks = []
@@ -62,48 +57,40 @@ const getLinks = (filePath) => {
         href: href,
         text: text,
         file: filePath
-      }
-      storageLinks.push(linkInfo)
+        }
+        storageLinks.push(linkInfo)
     }
     }
     marked(readFile(filePath), { renderer })
     return storageLinks
 }
-// console.log(getLinks('readme2.md'))
+// console.log(getLinks(process.argv[2]))
+
 
 const validateLink = (arr) => arr.map((obj) =>
     fetch(obj.href)
     .then((res) => {
-        if (res.status === 200) {
-                const objLink = {
-                    Href: obj.href,
-                    Text: obj.text,
-                    File: obj.file,
-                    Status: res.status,
-                    Message: 'OK'
-                }
-                return (objLink)
-            } else if (res.status !== 200) {
-                const objLink = {
-                    Href: obj.href,
-                    Text: obj.text,
-                    File: obj.file,
-                    Status: res.status,
-                    Message: 'FAIL'
-                }
-                return (objLink)
-            }
+        return {
+            Href: obj.href,
+            Text: obj.text,
+            File: obj.file,
+            Status: res.status,
+            Message: (res.status === 200) ? 'OK' : 'FAIL'
+        }
     })
-    .catch(() => ({
+    .catch(() => {
+       return {
         Href: obj.href,
         Text: obj.text,
         File: obj.file,
         status: 500,
         statusText: 'FAIL'
-      }))
+      }
+    })
 )
 
-// Promise.all(validateLink(getLinks(process.argv[2])))
+
+// Promise.all(validateLink(getLinks()))
 // .then((res) => {
 //     console.log(res)
 // })
@@ -117,7 +104,7 @@ module.exports = {
     isFile,
     isDirectory,
     mdExt,
-    accessDirectory,
+    mdFiles,
     validateLink,
     getLinks
 }

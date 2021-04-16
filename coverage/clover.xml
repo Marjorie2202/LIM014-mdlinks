@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1618349917035" clover="3.2.0">
-  <project timestamp="1618349917035" name="All files">
-    <metrics statements="40" coveredstatements="32" conditionals="16" coveredconditionals="10" methods="15" coveredmethods="12" elements="71" coveredelements="54" complexity="0" loc="40" ncloc="40" packages="1" files="1" classes="1"/>
+<coverage generated="1618500988809" clover="3.2.0">
+  <project timestamp="1618500988810" name="All files">
+    <metrics statements="38" coveredstatements="32" conditionals="12" coveredconditionals="9" methods="15" coveredmethods="12" elements="65" coveredelements="53" complexity="0" loc="38" ncloc="38" packages="1" files="1" classes="1"/>
     <file name="index.js" path="C:\Users\Astrid\Desktop\LABORATORIA\PROYECTO_MDLINKS\LIM014-mdlinks\index.js">
-      <metrics statements="40" coveredstatements="32" conditionals="16" coveredconditionals="10" methods="15" coveredmethods="12"/>
+      <metrics statements="38" coveredstatements="32" conditionals="12" coveredconditionals="9" methods="15" coveredmethods="12"/>
       <line num="4" count="1" type="stmt"/>
       <line num="5" count="1" type="stmt"/>
       <line num="6" count="1" type="stmt"/>
       <line num="7" count="1" type="stmt"/>
       <line num="15" count="4" type="stmt"/>
       <line num="18" count="15" type="stmt"/>
-      <line num="19" count="7" type="stmt"/>
+      <line num="19" count="5" type="stmt"/>
       <line num="22" count="5" type="stmt"/>
       <line num="25" count="8" type="stmt"/>
       <line num="29" count="13" type="cond" truecount="4" falsecount="0"/>
       <line num="33" count="1" type="stmt"/>
       <line num="34" count="1" type="stmt"/>
-      <line num="36" count="8" type="stmt"/>
-      <line num="37" count="10" type="cond" truecount="2" falsecount="0"/>
-      <line num="38" count="8" type="cond" truecount="2" falsecount="0"/>
-      <line num="39" count="3" type="stmt"/>
-      <line num="41" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="42" count="2" type="stmt"/>
-      <line num="45" count="4" type="stmt"/>
-      <line num="51" count="5" type="stmt"/>
-      <line num="55" count="1" type="stmt"/>
+      <line num="35" count="8" type="stmt"/>
+      <line num="36" count="10" type="cond" truecount="2" falsecount="0"/>
+      <line num="37" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="38" count="3" type="stmt"/>
+      <line num="40" count="2" type="stmt"/>
+      <line num="42" count="4" type="stmt"/>
+      <line num="48" count="5" type="stmt"/>
+      <line num="52" count="1" type="stmt"/>
+      <line num="53" count="1" type="stmt"/>
+      <line num="54" count="5" type="stmt"/>
+      <line num="55" count="5" type="stmt"/>
       <line num="56" count="1" type="stmt"/>
-      <line num="57" count="5" type="stmt"/>
-      <line num="58" count="5" type="stmt"/>
-      <line num="59" count="1" type="stmt"/>
-      <line num="60" count="1" type="cond" truecount="1" falsecount="1"/>
-      <line num="61" count="1" type="stmt"/>
-      <line num="66" count="1" type="stmt"/>
-      <line num="69" count="5" type="stmt"/>
-      <line num="70" count="1" type="stmt"/>
-      <line num="74" count="3" type="stmt"/>
-      <line num="75" count="0" type="stmt"/>
-      <line num="77" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="78" count="0" type="stmt"/>
+      <line num="57" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="58" count="1" type="stmt"/>
+      <line num="63" count="1" type="stmt"/>
+      <line num="66" count="5" type="stmt"/>
+      <line num="67" count="1" type="stmt"/>
+      <line num="72" count="1" type="stmt"/>
+      <line num="73" count="3" type="stmt"/>
+      <line num="74" count="0" type="stmt"/>
+      <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="77" count="0" type="stmt"/>
       <line num="85" count="0" type="stmt"/>
-      <line num="86" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="87" count="0" type="stmt"/>
-      <line num="94" count="0" type="stmt"/>
-      <line num="97" count="0" type="stmt"/>
-      <line num="114" count="1" type="stmt"/>
+      <line num="95" count="0" type="stmt"/>
+      <line num="104" count="0" type="stmt"/>
+      <line num="115" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>

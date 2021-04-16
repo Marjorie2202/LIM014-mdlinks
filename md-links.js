@@ -3,9 +3,8 @@ const {
   itExists,
   relativToAbs,
   isFile,
-  isDirectory,
   mdExt,
-  accessDirectory,
+  mdFiles,
   getLinks,
   validateLink
 } = require('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/index.js')
@@ -13,34 +12,29 @@ const {
 const mdLinks = (filePath, option) => {
   return new Promise((resolve, reject) => {
     if (itExists(filePath)) {
-      if (relativToAbs(filePath)) {
-        if (isFile(filePath)) {
-          if (mdExt(filePath)) {
-            if (option.validate) {
-              Promise.all(validateLink(getLinks(filePath)))
-                .then((res) => { resolve(res) })
-                .catch((error) => console.error(error))
-            } else {
-              resolve(getLinks(filePath))
-            }
-          } else { resolve('No soy archivo con extensión MD') }
-        } else if (isDirectory(filePath)) {
-          accessDirectory(filePath).forEach((file) => {
-            if (option.validate) {
-              Promise.all(validateLink(getLinks(file)))
-                .then((res) => { resolve(res) })
-                .catch((error) => console.error(error))
-            } else {
-              resolve(getLinks(file))
-            }
+      const absolutePath = relativToAbs(filePath)
+      if (isFile(absolutePath)) {
+        if (mdExt(absolutePath)) {
+          if (option && option.validate) {
+            validateLink(getLinks(absolutePath))
+              .then((res) => { resolve(res) })
+              .catch((error) => console.error(error))
+          } else { resolve(getLinks(absolutePath)) }
+        } else { resolve('No soy archivo con extensión MD') }
+      } else {
+        let promises
+        if (option && option.validate) {
+          mdFiles(absolutePath).forEach(file => {
+            promises = (validateLink(getLinks(file)))
           })
-        } else { reject('No hay archivos MD') }
+          Promise.all(promises).then((res) => resolve(res))
+        } else { mdFiles(absolutePath).forEach((file) => { resolve(getLinks(file)) }) }
       }
     } else { reject('ruta no existe') }
   })
 }
 
-mdLinks(process.argv[2], { validate: false })
+mdLinks(process.argv[2], { validate: true })
   .then((links) => {
     console.log(links)
   })
@@ -49,3 +43,10 @@ mdLinks(process.argv[2], { validate: false })
 module.exports = {
   mdLinks
 }
+
+// resolve((promises).then((links) => { console.log(links) }))
+
+// PROBAR CON CREAR ARRAY
+// promiseStorage = promiseStorage.concat(validateLink(getLinks(file)))
+// promiseStorage = [...promiseStorage, ...(getLinks(file))]
+// promiseStorage.push(...(getLinks(file)))

@@ -5,12 +5,11 @@ const {
   isFile,
   isDirectory,
   mdExt,
-  accessDirectory,
+  mdFiles,
   getLinks,
   validateLink
 } = require('../index.js')
 
-// IT EXISTS
 describe('File or directory exists ', () => {
   it('should be a function', () => {
     expect(typeof itExists).toBe('function')
@@ -83,21 +82,21 @@ describe('Is it an md file?', () => {
   })
 })
 
-describe('Access Directory ', () => {
+describe('Access Directory and get mdFiles', () => {
   it('should be a function', () => {
-    expect(typeof accessDirectory).toBe('function')
+    expect(typeof mdFiles).toBe('function')
   })
   it('should throw Error when invoked with wrong argument types', () => {
-    expect(() => accessDirectory()).toThrowError('The "path" argument must be of type string or an instance of Buffer or URL. Received undefined')
-    expect(() => accessDirectory(0)).toThrowError()
-    expect(() => accessDirectory([])).toThrowError()
-    expect(() => accessDirectory(null)).toThrowError()
+    expect(() => mdFiles()).toThrowError('The "path" argument must be of type string or an instance of Buffer or URL. Received undefined')
+    expect(() => mdFiles(0)).toThrowError()
+    expect(() => mdFiles([])).toThrowError()
+    expect(() => mdFiles(null)).toThrowError()
   })
   it('should return an empty array', () => {
-    expect(accessDirectory('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/test')).toStrictEqual([])
+    expect(mdFiles('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/test')).toStrictEqual([])
   })
   it('should return an array', () => {
-    expect(accessDirectory('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory'))
+    expect(mdFiles('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory'))
       .toStrictEqual([
         'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/exampFile2.md',
         'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/exampFile4.md',
