@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable indent */
 /* eslint-disable no-multiple-empty-lines */
 
@@ -6,9 +7,6 @@ const path = require('path')
 const marked = require('marked')
 const fetch = require('node-fetch')
 
-
-// DETERMINAR SI EL PATH ES ABSOLUTO
-//  const isAbsolute = (filePath) => path.isAbsolute(filePath)
 
 // CONVERTIR RUTA RELATIVA A ABSOLUTA
  const relativToAbs = (filePath) => path.resolve(filePath)
@@ -40,57 +38,55 @@ const mdFiles = (directory) => {
     })
     return mdFilesArr
 }
-// CONVERTIR LA FUNCIÓN A PURA
-// console.log(mdFiles(process.argv[2]))
 
 // LEER ARCHIVO
 const readFile = (filePath) => (fs.readFileSync(filePath, 'utf8'))
 
 // OBTENER LINKS
 const storageLinks = []
-const getLinks = (filePath) => {
+const getLinks = (file) => {
     const renderer = new marked.Renderer()
     renderer.link = (href, title, text) => {
-        const validHref = /https:([^"')\s]+)/
-        if (validHref.test(href) === true) {
+        const validHref = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
+        if (validHref.test(href)) {
         const linkInfo = {
         href: href,
         text: text,
-        file: filePath
+        file: file
         }
         storageLinks.push(linkInfo)
     }
     }
-    marked(readFile(filePath), { renderer })
+    marked(readFile(file), { renderer })
     return storageLinks
 }
 // console.log(getLinks(process.argv[2]))
 
 
-const validateLink = (arr) => arr.map((obj) =>
+const validateLinks = (arr) => arr.map((obj) =>
     fetch(obj.href)
     .then((res) => {
         return {
-            Href: obj.href,
-            Text: obj.text,
-            File: obj.file,
-            Status: res.status,
-            Message: (res.status === 200) ? 'OK' : 'FAIL'
+            href: obj.href,
+            text: obj.text,
+            file: obj.file,
+            status: res.status,
+            message: (res.status === 200) ? 'OK' : 'FAIL'
         }
     })
     .catch(() => {
        return {
-        Href: obj.href,
-        Text: obj.text,
-        File: obj.file,
+        href: obj.href,
+        text: obj.text,
+        file: obj.file,
         status: 500,
-        statusText: 'FAIL'
+        message: 'FAIL'
       }
     })
 )
 
 
-// Promise.all(validateLink(getLinks()))
+// Promise.all(validateLinks(getLinks(process.argv[2])))
 // .then((res) => {
 //     console.log(res)
 // })
@@ -105,6 +101,6 @@ module.exports = {
     isDirectory,
     mdExt,
     mdFiles,
-    validateLink,
+    validateLinks,
     getLinks
 }

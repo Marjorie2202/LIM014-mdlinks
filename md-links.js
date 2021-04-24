@@ -6,39 +6,40 @@ const {
   mdExt,
   mdFiles,
   getLinks,
-  validateLink
+  validateLinks
 } = require('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/index.js')
 
 const mdLinks = (filePath, option) => {
   return new Promise((resolve, reject) => {
     if (itExists(filePath)) {
       const absolutePath = relativToAbs(filePath)
-      if (isFile(absolutePath)) {
-        if (mdExt(absolutePath)) {
-          if (option && option.validate) {
-            validateLink(getLinks(absolutePath))
-              .then((res) => { resolve(res) })
-              .catch((error) => console.error(error))
-          } else { resolve(getLinks(absolutePath)) }
-        } else { resolve('No soy archivo con extensión MD') }
+      if (isFile(absolutePath) && mdExt(absolutePath)) {
+        if (option && option.validate) {
+          const validateLinksCatched = validateLinks(getLinks(absolutePath)).map(x => x.catch(x => x))
+          Promise.all(validateLinksCatched)
+            .then((res) => { resolve(res) })
+            .catch(() => console.log('ERROR'))
+        } else { resolve(getLinks(absolutePath)) }
       } else {
         let promises
         if (option && option.validate) {
           mdFiles(absolutePath).forEach(file => {
-            promises = (validateLink(getLinks(file)))
+            promises = validateLinks(getLinks(file)).map(x => x.catch(x => x))
           })
-          Promise.all(promises).then((res) => resolve(res))
+          Promise.all(promises)
+            .then((res) => resolve(res))
+            .catch(() => console.log(' ERROR'))
         } else { mdFiles(absolutePath).forEach((file) => { resolve(getLinks(file)) }) }
       }
-    } else { reject('ruta no existe') }
+    } else { reject('Ruta no existe') }
   })
 }
 
-mdLinks(process.argv[2], { validate: true })
-  .then((links) => {
-    console.log(links)
-  })
-  .catch(console.error)
+// mdLinks(process.argv[2], { validate: true })
+//   .then((links) => {
+//     console.log(links)
+//   })
+//   .catch(console.error)
 
 module.exports = {
   mdLinks
@@ -47,6 +48,6 @@ module.exports = {
 // resolve((promises).then((links) => { console.log(links) }))
 
 // PROBAR CON CREAR ARRAY
-// promiseStorage = promiseStorage.concat(validateLink(getLinks(file)))
+// promiseStorage = promiseStorage.concat(validateLinks(getLinks(file)))
 // promiseStorage = [...promiseStorage, ...(getLinks(file))]
 // promiseStorage.push(...(getLinks(file)))
