@@ -8,6 +8,9 @@ const marked = require('marked')
 const fetch = require('node-fetch')
 
 
+// NORMALIZAR PATH
+const normalize = (filePath) => path.normalize(filePath)
+
 // CONVERTIR RUTA RELATIVA A ABSOLUTA
  const relativToAbs = (filePath) => path.resolve(filePath)
 
@@ -55,7 +58,8 @@ const getLinks = (file) => {
         file: file
         }
         storageLinks.push(linkInfo)
-    }
+        }
+        // else { console.log('No se encontraron Links') }
     }
     marked(readFile(file), { renderer })
     return storageLinks
@@ -85,7 +89,6 @@ const validateLinks = (arr) => arr.map((obj) =>
     })
 )
 
-
 // Promise.all(validateLinks(getLinks(process.argv[2])))
 // .then((res) => {
 //     console.log(res)
@@ -95,6 +98,7 @@ const validateLinks = (arr) => arr.map((obj) =>
 
 
 module.exports = {
+    normalize,
     itExists,
     relativToAbs,
     isFile,
