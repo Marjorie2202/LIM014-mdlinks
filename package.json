@@ -1,8 +1,8 @@
 {
-  "name": "md-links",
+  "name": "astridtimana-md-links",
   "version": "0.1.0",
   "main": "index.js",
-  "author": "Astrid Timana",
+  "author": "astridtimana",
   "license": "MIT",
   "scripts": {
     "eslint": "eslint --ext .js test/",
@@ -14,6 +14,7 @@
     "md-links": "CLI.js"
   },
   "dependencies": {
+    "astridtimana-md-links": "^0.1.0",
     "chalk": "^4.1.0",
     "commander": "^2.20.3",
     "editorconfig": "^0.15.3",
@@ -32,5 +33,18 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astridtimana/LIM014-mdlinks.git"
+  },
+  "keywords": [
+    "markdown",
+    "validate links",
+    "links"
+  ],
+  "bugs": {
+    "url": "https://github.com/astridtimana/LIM014-mdlinks/issues"
+  },
+  "homepage": "https://github.com/astridtimana/LIM014-mdlinks#readme"
 }

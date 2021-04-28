@@ -40,7 +40,7 @@ El proyecto MDLinks crea una librería usando Node JS, que lee y analiza archivo
 Para la instalación, usar el siguiente comando:
 
 ~~~ 
-npm 
+npm i astridtimana-md-links
 ~~~ 
 
 El ejecutable de la aplicación se ejecuta de la siguiente manera a través de la terminal:
