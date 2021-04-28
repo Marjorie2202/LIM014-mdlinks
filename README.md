@@ -4,13 +4,9 @@
 
 * [1. Preámbulo](#1-preámbulo)
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
-* [4. Consideraciones generales](#4-consideraciones-generales)
-* [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)
-* [6. Entregables](#6-entregables)
-* [7. Hacker edition](#7-hacker-edition)
-* [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
-* [9. Checklist](#9-checklist)
+* [3. Guía de uso](#3-guía-de-uso)
+* [4. Objetivos de Aprendizaje](#4-objetivos-de-aprendizaje)
+* [5. Checklist](#5-checklist)
   
 ***
 
@@ -55,7 +51,7 @@ md-links <path-to-file> [options]
 
 ### Options
 
-#### Stats
+#### **--stats**
 
 Si pasamos la opción '-s' o '--stats', el output (salida) será un texto con estadísticas básicas sobre los links.
 
@@ -67,7 +63,7 @@ Por ejemplo:
 
 ![Stats example](https://user-images.githubusercontent.com/75852321/116343969-17793e00-a7ab-11eb-8a9f-c71c36347d23.png)
 
-#### Validate
+#### **-validate**
 
 Si pasamos la opción '--validate' o '-v' o 'validate link', el módulo debe hacer una petición HTTP para averiguar si el link funciona o no. Si el link resulta en una redirección a una URL que responde ok, entonces consideraremos el link como ok.
 
@@ -79,7 +75,7 @@ Por ejemplo:
 
 ![validate Example](https://user-images.githubusercontent.com/75852321/116344437-d7ff2180-a7ab-11eb-8e0f-b14ec5326df9.png)
 
-#### StatsValidate
+#### **--statsValidate**
 
 También podemos combinar --stats y --validate o pasarla opción '-a' para obtener estadísticas que necesiten de los resultados de la validación.
 
@@ -92,7 +88,7 @@ Por ejemplo:
 ![StatsValidate example](https://user-images.githubusercontent.com/75852321/116344331-ac7c3700-a7ab-11eb-81d4-3c05f25c55d4.png)
 
 
-#### No Option
+#### **No Option**
 
 Si no se ingresa una opción, por default se identifica al archivo markdown (a partir de la ruta que recibe como
 argumento), analiza , e imprimevlos links que vaya encontrando, junto con la ruta del archivo donde aparece y el texto que hay dentro del link (truncado a 50 caracteres).
@@ -105,7 +101,7 @@ Por ejemplo:
 
 ![No Option example](https://user-images.githubusercontent.com/75852321/116345327-89eb1d80-a7ad-11eb-8b8d-15d1bae1e7d6.png)
 
-#### Help
+#### **--help**
 
 Si se desea conocer los comandos a usar, se debe ingresar elcomando '-h' o '--help' (sin ingresar el 'path') , de la siguiente forma:
 
