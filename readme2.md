@@ -12,9 +12,7 @@
 * [ ] [Uso de callbacks.](https://mozilla.org/es/docs/Glossary/Callback_function)
 * [ ] [Consumo de Promesas.](https://tutorials/javascript-promises-for-dummies#toc-consuming-promises)
 * [ ] [Creación de Promesas.](https:/news/how-to-write-a-javascript-promise-4ed8d44292b8/)
-- [Links](https://raw.githubusercontent.com/erikagonza25/LIM014-mdlinks/main/img/links_404) 
-* [ prueba ](https://nodejs.org/e/)
-*[ prueba2 ](http://www.mtv.de/)
+
 
 
 

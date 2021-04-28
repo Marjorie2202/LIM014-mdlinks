@@ -5,6 +5,8 @@
   "author": "Astrid Timana",
   "license": "MIT",
   "scripts": {
+    "eslint": "eslint --ext .js test/",
+    "pretest": "npm run eslint",
     "test": "jest --verbose --coverage",
     "start": "CLI.js"
   },

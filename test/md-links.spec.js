@@ -223,22 +223,19 @@ describe('Validate Links', () => {
     fetch.mockResolvedValue(objResolve)
     return Promise.all(validateLinks(objA)).then((data) => {
       expect(data).toEqual(objValidationA)
-    }
-    )
+    })
   })
   test('mock promise rejection', async () => {
     fetch.mockRejectedValue(objReject)
     return Promise.all(validateLinks(objB)).then((data) => {
       expect(data).toEqual(objRejectionB)
-    }
-    )
+    })
   })
   test('mock promise resolution 404', async () => {
     fetch.mockResolvedValue(objResolveC)
     return Promise.all(validateLinks(objC)).then((data) => {
       expect(data).toEqual(objValidationC)
-    }
-    )
+    })
   })
 })
 

@@ -12,7 +12,7 @@ const {
   flowers5
 } = require('./imagenes/images.js')
 const chalk = require('chalk')
-const figlet = require('figlet')
+// const figlet = require('figlet')
 
 // const lilacColor = chalk.rgb(229, 108, 240)
 // const pinkColor = chalk.rgb(242, 73, 123)
@@ -30,25 +30,25 @@ const lemonGreenColor = chalk.rgb(168, 209, 31)
 
 const defaultOption = (arr) =>
   arr.forEach((obj) => {
-    const path = lemonGreenColor(`Path: ${obj.file} |`)
-    const link = bubblegumColor(`  Link: ${obj.href} |`)
-    const text = babyYellowColor(`  Text: ${obj.text.substr(0, 50)}`)
-    return console.log('• ' + path + link + text)
+    const path = lemonGreenColor(`Path: ${obj.file} `)
+    const link = bubblegumColor(`Link: ${obj.href} `)
+    const text = babyYellowColor(`Text: ${obj.text.substr(0, 50)}`)
+    return console.log(`\n${path}\n${link}\n${text}`)
   })
 //  validate((process.argv[2]))
 
 const toValidate = (arr) =>
   arr.forEach((obj) => {
-    const path = lemonGreenColor(`Path: ${obj.file} |`)
-    const link = bubblegumColor(`  Link: ${obj.href}  |`)
-    const text = creamColor(`  Text: ${obj.text.substr(0, 50)} |`)
+    const path = lemonGreenColor(`Path: ${obj.file} `)
+    const link = bubblegumColor(`Link: ${obj.href}  `)
+    const text = creamColor(`Text: ${obj.text.substr(0, 50)} `)
     let status
     if (obj.message === 'OK') {
-      status = skyBlueColor(` Status: ${obj.status} ${obj.message} `)
+      status = skyBlueColor(`Status: ${obj.status} ${obj.message} `)
     } else if (obj.message === 'FAIL') {
-      status = hotPinkColor(` Status: ${obj.status} ${obj.message} `)
+      status = hotPinkColor(`Status: ${obj.status} ${obj.message} `)
     }
-    return console.log('• ' + path + link + text + status)
+    return console.log(`\n${path}\n${link}\n${text}\n${status}`)
   })
 //  validate((process.argv[2]))
 
@@ -60,8 +60,8 @@ const toStats = (arr) => {
     unique.add(element.href)
   })
   const totalLinks = creamColor(`Total: ${total.length}`)
-  const uniqueLinks = lemonGreenColor(`  Unique: ${unique.size}`)
-  return console.log(totalLinks + uniqueLinks)
+  const uniqueLinks = lemonGreenColor(`Unique: ${unique.size}`)
+  return console.log(`\n${totalLinks}\n${uniqueLinks}`)
 }
 // stats((process.argv[2]))
 
@@ -74,39 +74,35 @@ const toStatsValidate = (arr) => {
     unique.add(element.href)
   })
   const totalLinks = creamColor(`Total: ${total.length}`)
-  const uniqueLinks = lemonGreenColor(`  Unique: ${unique.size}`)
-  const brokenLinks = hotPinkColor(`  Broken: ${broken.length} `)
-  return console.log(totalLinks + uniqueLinks + brokenLinks)
+  const uniqueLinks = lemonGreenColor(`Unique: ${unique.size}`)
+  const brokenLinks = hotPinkColor(`Broken: ${broken.length} `)
+  return console.log(`\n${totalLinks}\n${uniqueLinks}\n${brokenLinks}`)
 }
 // statsValidate(process.argv[2])
 
 program
-  .usage('path')
+  .usage(`\n${mdTitle} \n Remember! For Windows , "path" must be in string `)
   .option('-v, --validate', 'links validation')
   .option('-s, --stats', 'links basic statistics')
   .option('-a, --statsValidate', 'links statistics adding validation')
-  .option('-h, --help', 'how to use Md-links')
   .action((path) => {
     const options = program.opts()
-
     mdLinks(path, { validate: true })
       .then((arr) => {
-        if (options.validate & !options.stats) {
+        if (options.validate && !options.stats && !options.statsValidate) {
           toValidate(arr)
           console.log(lemonGreenColor.bold(flowers))
-        } else if (options.stats & !options.validate) {
+        } else if (!options.validate && options.stats && !options.statsValidate) {
           toStats(arr)
           console.log(bubblegumColor.bold(flowers2))
-        } else if (options.statsValidate) {
+        } else if (!options.validate && !options.stats && options.statsValidate) {
           toStatsValidate(arr)
           console.log(pollenColor.bold(flowers3))
-        } else if (arr.length === 0) {
-          console.log(creamColor.bold(flowers4))
-        } else if (options.help) {
-          console.log(mdTitle)
-        } else {
+        } else if (!options.stats && !options.validate && !options.statsValidate) {
           defaultOption(arr)
           console.log(pollenColor.bold(flowers5))
+        } else if (arr.length === 0) {
+          console.log(creamColor.bold(flowers4))
         }
       })
       .catch((error) => console.log(error))

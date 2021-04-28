@@ -50,7 +50,7 @@ const storageLinks = []
 const getLinks = (file) => {
     const renderer = new marked.Renderer()
     renderer.link = (href, title, text) => {
-        const validHref = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/
+        const validHref = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/
         if (validHref.test(href)) {
         const linkInfo = {
         href: href,
@@ -59,7 +59,6 @@ const getLinks = (file) => {
         }
         storageLinks.push(linkInfo)
         }
-        // else { console.log('No se encontraron Links') }
     }
     marked(readFile(file), { renderer })
     return storageLinks

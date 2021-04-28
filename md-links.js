@@ -33,8 +33,8 @@ const mdLinks = (filePath, option) => {
             .then((res) => resolve(res))
             .catch(() => console.log((chalk.rgb(168, 209, 31)('NO HAY LINKS PARA VALIDAR 🍀'))))
         } else { mdFiles(absolutePath).forEach((file) => { resolve(getLinks(file)) }) }
-      } else { reject('No es archivo MD 🥀 ') }
-    } else { reject('Ruta no existe 🥀 ') }
+      } else { reject(chalk.rgb(245, 37, 72)('No es archivo MD 🥀 ')) }
+    } else { reject(chalk.rgb(245, 37, 72)('Ruta no existe 🥀 ')) }
   })
 }
 
@@ -47,10 +47,3 @@ const mdLinks = (filePath, option) => {
 module.exports = {
   mdLinks
 }
-
-// resolve((promises).then((links) => { console.log(links) }))
-
-// PROBAR CON CREAR ARRAY
-// promiseStorage = promiseStorage.concat(validateLinks(getLinks(file)))
-// promiseStorage = [...promiseStorage, ...(getLinks(file))]
-// promiseStorage.push(...(getLinks(file)))
