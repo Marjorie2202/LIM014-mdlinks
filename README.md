@@ -63,7 +63,7 @@ Por ejemplo:
 
 ![Stats example](https://user-images.githubusercontent.com/75852321/116343969-17793e00-a7ab-11eb-8a9f-c71c36347d23.png)
 
-#### **-validate**
+#### **--validate**
 
 Si pasamos la opción '--validate' o '-v' o 'validate link', el módulo debe hacer una petición HTTP para averiguar si el link funciona o no. Si el link resulta en una redirección a una URL que responde ok, entonces consideraremos el link como ok.
 
