@@ -16,14 +16,14 @@ const objA = [
   {
     href: 'https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209',
     text: 'entramos al 3er dir',
-    file: 'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'
+    file: 'C:/Users/W10/Desktop/LABORATORIA/PROYECTOS/MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'
   }
 ]
 const objValidationA = [
   {
     href: 'https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209',
     text: 'entramos al 3er dir',
-    file: 'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md',
+    file: 'C:/Users/W10/Desktop/LABORATORIA/PROYECTOS/MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md',
     status: 200,
     message: 'OK'
   }
@@ -171,15 +171,15 @@ describe('Access Directory and get mdFiles', () => {
     expect(() => mdFiles(null)).toThrowError()
   })
   it('should return an empty array', () => {
-    expect(mdFiles('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/test')).toStrictEqual([])
+    expect(mdFiles('C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/test')).toStrictEqual([])
   })
   it('should return an array', () => {
-    expect(mdFiles('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory'))
+    expect(mdFiles('C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/firstExampleDirectory'))
       .toStrictEqual([
-        'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/exampFile2.md',
-        'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/exampFile4.md',
-        'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md',
-        'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile7.md'
+        'C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/firstExampleDirectory/exampFile2.md',
+        'C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/exampFile4.md',
+        'C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md',
+        'C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile7.md'
       ])
   })
 })
@@ -195,16 +195,16 @@ describe('Get Links', () => {
     expect(() => getLinks(null)).toThrowError()
   })
   it('should return an array with objects', () => {
-    expect(getLinks('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile7.md'))
+    expect(getLinks('C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile7.md'))
       .toStrictEqual([])
   })
   it('should return an array with objects', () => {
-    expect(getLinks('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'))
+    expect(getLinks('C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'))
       .toStrictEqual([
         {
           href: 'https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209',
           text: 'entramos al 3er dir',
-          file: 'C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'
+          file: 'C:/Users/W10/Desktop/LABORATORIA/prueba1/LIM014-mdlinks/firstExampleDirectory/secondExampleDirectory/thirdExampleDirectory/exampFile6.md'
         }
       ])
   })

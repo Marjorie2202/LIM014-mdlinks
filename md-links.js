@@ -9,7 +9,7 @@ const {
   getLinks,
   isDirectory,
   validateLinks
-} = require('C:/Users/Astrid/Desktop/LABORATORIA/PROYECTO_MDLINKS/LIM014-mdlinks/index.js')
+} = require('./index.js')
 const chalk = require('chalk')
 
 const mdLinks = (filePath, option) => {
